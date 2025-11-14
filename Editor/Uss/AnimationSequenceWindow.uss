@@ -1,0 +1,95 @@
+.Track {
+    min-height: 30px;
+}
+
+.Data-Field {
+    min-width: 200px;
+}
+
+.data-field_toolbar-container {
+    flex-direction: row;
+}
+
+.data-field_toolbar-button {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.data-field_toolbar-button_icon {
+    width: 20px;
+    height: 20px;
+}
+
+.data-field_toolbar-button_icon-play {
+    background-image: resource('Sprites/play');
+}
+
+.data-field_toolbar-button_icon-pause {
+    background-image: resource('Sprites/pause');
+}
+
+.data-field_toolbar-button_icon-stop {
+    background-image: resource('Sprites/stop');
+}
+
+.data-field_list-view_footer {
+    background-color: rgba(0, 0, 0, 0);
+    height: 40px;
+    flex-direction: row;
+}
+
+.data-field_listview_footer_button {
+    background-color: gray;
+    flex-grow: 1;
+}
+
+.data-field_data-track {
+    flex-grow: 1;
+    flex-direction: row;
+}
+
+.timeline_element {
+    min-width: 1920px;
+}
+
+.Timeline_Track {
+    border-color: black;
+    border-radius: 5px;
+    border-width: 2px;
+    background-color: rgb(81, 81, 81);
+}
+
+.Timeline_Bar {
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    width: 1px;
+    height: 100%;
+}
+
+.Timeline_TimeLabel {
+    position: absolute;
+}
+
+.Timeline_TimeBar {
+    position: absolute;
+    width: 1px;
+    height: 20px;
+    background-color: rgb(81, 81, 81);
+}
+
+.track_scroll-view_parent {
+    flex-grow: 1;
+}
+
+.track_scroll-view {
+    flex-grow: 1;
+}
+
+.track_marker {
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    width: 8px;
+    height: 15px;
+    background-image: resource('Sprites/marker');
+}

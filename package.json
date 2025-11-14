@@ -1,0 +1,12 @@
+{
+  "name": "com.godole.animationsequencetool",		
+  "version": "0.0.0",					
+  "displayName": "Animation Sequence Tool",			
+  "description": "애니메이션 이벤트를 편하게 추가 및 수정 가능한 툴입니다",		
+  "unity": "2022.3",					
+  "author": {						
+    "name": "Godole",
+    "email": "godole156@gmail.com",
+    "url": "https://github.com/godole/godole"
+  }
+}

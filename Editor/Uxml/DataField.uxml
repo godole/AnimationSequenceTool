@@ -1,0 +1,7 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/Scripts/Framework/AnimationSequenceEvent/Editor/AnimationSequenceWindow.uss?fileID=7433441132597879392&amp;guid=521bfc7a617f83543a1303e0b8207ed1&amp;type=3#AnimationSequenceWindow" />
+    <ui:VisualElement name="RootElement" style="flex-grow: 1; flex-direction: row; flex-shrink: 0; min-width: 200px; max-width: 200px; min-height: 30px; max-height: 30px;">
+        <AnimationSequenceTool.Editor.VisualElements.PreviewPanel.PreviewDataField name="DataField" style="flex-direction: column-reverse; flex-grow: 3; flex-basis: 30px;" />
+        <ui:Button name="RemoveDataButton" style="flex-grow: 0; flex-basis: 30px;" />
+    </ui:VisualElement>
+</ui:UXML>

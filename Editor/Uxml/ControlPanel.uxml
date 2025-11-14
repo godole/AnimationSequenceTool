@@ -1,0 +1,27 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:Template name="SequenceTimeline" src="project://database/Assets/AnimationSequenceTool/Editor/Uxml/SequenceTimeline.uxml?fileID=9197481963319205126&amp;guid=a5ce32e94e125884894ff1b0033d4a6e&amp;type=3#SequenceTimeline" />
+    <Style src="project://database/Assets/AnimationSequenceTool/Editor/Uss/AnimationSequenceWindow.uss?fileID=7433441132597879392&amp;guid=521bfc7a617f83543a1303e0b8207ed1&amp;type=3#AnimationSequenceWindow" />
+    <ui:VisualElement name="RootElement" style="flex-direction: column; flex-grow: 1;">
+        <ui:VisualElement name="AnimationToolbar" style="flex-grow: 1; min-height: 50px; max-height: 50px;">
+            <ui:DropdownField label="Dropdown" name="SelectStateDropdown" />
+        </ui:VisualElement>
+        <ui:VisualElement name="TimelineContainer" style="flex-direction: row;">
+            <ui:VisualElement name="DataContainer" style="flex-basis: 200px;">
+                <ui:VisualElement name="ToolbarContainer" class="Data-Field Track data-field_toolbar-container">
+                    <ui:Button name="Play" class="data-field_toolbar-button">
+                        <ui:VisualElement class="data-field_toolbar-button_icon data-field_toolbar-button_icon-play" style="flex-grow: 0;" />
+                    </ui:Button>
+                    <ui:Button name="Pause" class="data-field_toolbar-button">
+                        <ui:VisualElement class="data-field_toolbar-button_icon data-field_toolbar-button_icon-pause" />
+                    </ui:Button>
+                    <ui:Button name="Stop" class="data-field_toolbar-button">
+                        <ui:VisualElement class="data-field_toolbar-button_icon data-field_toolbar-button_icon-stop" />
+                    </ui:Button>
+                </ui:VisualElement>
+                <ui:ListView name="DataFieldListView" show-foldout-header="false" show-add-remove-footer="false" allow-add="true" allow-remove="true" fixed-item-height="30" />
+                <ui:Button text="Create New Sequence Data" name="DataFieldAddButton" class="data-field_listview_footer_button data-field_list-view_footer" />
+            </ui:VisualElement>
+            <ui:Instance template="SequenceTimeline" style="flex-grow: 1;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

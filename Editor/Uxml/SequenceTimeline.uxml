@@ -1,0 +1,14 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/Framework/AnimationSequenceEvent/Editor/AnimationSequenceWindow.uss?fileID=7433441132597879392&amp;guid=521bfc7a617f83543a1303e0b8207ed1&amp;type=3#AnimationSequenceWindow" />
+    <ui:VisualElement name="RootElement" style="flex-grow: 1; overflow: hidden;">
+        <ui:VisualElement name="ScrollViewParent" class="track_scroll-view_parent" style="flex-grow: 1;">
+            <ui:ScrollView class="track_scroll-view">
+                <AnimationSequenceTool.Editor.VisualElements.TimeTrack style="min-width: 1920px; max-width: 1920px; min-height: 30px; max-height: 30px; flex-direction: row;">
+                    <ui:VisualElement name="MarkerContainer" style="flex-grow: 1;" />
+                </AnimationSequenceTool.Editor.VisualElements.TimeTrack>
+                <ui:ListView name="TrackListView" fixed-item-height="30" class="timeline_element" />
+                <ui:VisualElement name="TimelineBar" class="Timeline_Bar" style="flex-grow: 1;" />
+            </ui:ScrollView>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
