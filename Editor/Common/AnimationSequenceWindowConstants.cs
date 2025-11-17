@@ -7,7 +7,7 @@ namespace AnimationSequenceTool.Editor.Common
         public const string PreviewLayer = "Preview";
 
         public const string CacheAssetPath = "UserSettings/SelectionCache.asset";
-        public const string UxmlPath = "Assets/Scripts/Framework/AnimationSequenceEvent/Editor/Uxml/";
+        public const string UxmlPath = "Packages/com.godole.animationsequencetool/Editor/Uxml/";
 
         public const float TrackWidth = 1920;
     }
