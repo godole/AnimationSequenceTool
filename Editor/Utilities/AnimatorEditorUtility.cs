@@ -1,7 +1,7 @@
 using UnityEditor.Animations;
 using UnityEngine;
 
-namespace Framework.AnimationSequenceEvent.Editor.Utilities
+namespace AnimationSequenceTool.Editor.Utilities
 {
     public static class AnimatorEditorUtility
     {

@@ -1,4 +1,4 @@
-using Framework.AnimationSequenceEvent.Editor.Utilities;
+using AnimationSequenceTool.Editor.Utilities;
 using UnityEngine;
 using UnityEngine.UIElements;
 

@@ -1,4 +1,4 @@
-namespace Framework.AnimationSequenceEvent.Editor.Utilities
+namespace AnimationSequenceTool.Editor.Utilities
 {
     public class EditorWindowStopwatch
     {

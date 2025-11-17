@@ -1,11 +1,11 @@
 using AnimationSequenceTool.Editor.Common;
+using AnimationSequenceTool.Editor.Utilities;
 using AnimationSequenceTool.Editor.VisualElements.ControlPanel;
+using AnimationSequenceTool.Editor.VisualElements.PreviewPanel;
 using AnimationSequenceTool.Runtime;
-using Framework.AnimationSequenceEvent.Editor.Utilities;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
-using AnimationPreviewPanel = AnimationSequenceTool.Editor.VisualElements.PreviewPanel.AnimationPreviewPanel;
 
 namespace AnimationSequenceTool.Editor
 {
