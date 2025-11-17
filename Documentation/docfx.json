@@ -1,17 +1,23 @@
 {
   "metadata": [
-    {
-      "src": [
-        {
-          "src" : "../Assets",
-          "files": [
-            "**.cs"
-          ]
-        }
-      ],
-      "dest": "api"
-    }
-  ],
+  {
+    "src": [
+      {
+        "src": "../Editor",
+        "files": [
+          "**.cs"
+        ]
+      },
+      {
+        "src": "../Runtime",
+        "files": [
+          "**.cs"
+        ]
+      }
+    ],
+    "dest": "api"
+  }
+],
   "build": {
     "content": [
       {
