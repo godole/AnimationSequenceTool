@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using AnimationSequenceTool.Runtime;
-using Framework.AnimationSequenceEvent;
 using UnityEditor;
 using UnityEngine;
 

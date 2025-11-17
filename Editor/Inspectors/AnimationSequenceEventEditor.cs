@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using AnimationSequenceTool.Editor.Common;
+using AnimationSequenceTool.Editor.Utilities;
 using AnimationSequenceTool.Runtime;
-using Framework.AnimationSequenceEvent.Editor.Utilities;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;

@@ -1,8 +1,8 @@
 using System;
 using AnimationSequenceTool.Editor.Common;
+using AnimationSequenceTool.Editor.Utilities;
 using AnimationSequenceTool.Editor.VisualElements.PreviewPanel;
 using AnimationSequenceTool.Runtime;
-using Framework.AnimationSequenceEvent.Editor.Utilities;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEditor.UIElements;

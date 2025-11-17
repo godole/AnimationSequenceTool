@@ -1,7 +1,7 @@
 using System;
 using UnityEngine.UIElements;
 
-namespace Framework.AnimationSequenceEvent.Editor.Utilities
+namespace AnimationSequenceTool.Editor.Utilities
 {
     public static class MouseDragHandler
     {

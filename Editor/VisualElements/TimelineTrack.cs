@@ -1,6 +1,6 @@
 using System;
 using AnimationSequenceTool.Editor.Common;
-using Framework.AnimationSequenceEvent.Editor.Utilities;
+using AnimationSequenceTool.Editor.Utilities;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
