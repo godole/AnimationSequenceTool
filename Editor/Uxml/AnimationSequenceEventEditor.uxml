@@ -1,0 +1,6 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/Scripts/Framework/AnimationSequenceEvent/Editor/AnimationSequenceEventEditor.uss?fileID=7433441132597879392&amp;guid=89c0f1e8881b2c9419c12dcd2f4fbd06&amp;type=3#AnimationSequenceEventEditor" />
+    <uie:ObjectField label="SequenceData" name="SequenceDataField" />
+    <ui:DropdownField label="AnimationState" name="AnimationStateDropdownField" />
+    <ui:ListView name="SequenceDataList" reorderable="true" show-border="true" virtualization-method="DynamicHeight" show-foldout-header="true" show-add-remove-footer="true" show-alternating-row-backgrounds="ContentOnly" allow-add="true" allow-remove="true" selection-type="Multiple" style="flex-grow: 1; min-height: auto; align-content: auto; overflow: visible; flex-direction: column;" />
+</ui:UXML>
