@@ -1,0 +1,46 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "src" : "../Assets",
+          "files": [
+            "**.cs"
+          ]
+        }
+      ],
+      "dest": "api"
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "toc.yml",
+          "index.md"
+        ]
+      },
+      {
+        "src": "api",
+        "files": [
+          "*.yml",
+          "index.md"
+        ],
+        "dest": "api"
+      },
+      {
+        "files": [
+          "articles/**.md",
+          "articles/**/toc.yml"
+        ],
+        "dest": "articles"
+      }
+    ],
+    "globalMetadata": {
+      "_appName": "Animation Sequence Tool",
+      "_appTitle": "Animation Sequence Tool",
+      "_enableSearch": true
+    },
+    "dest": "_site"
+  }
+}
