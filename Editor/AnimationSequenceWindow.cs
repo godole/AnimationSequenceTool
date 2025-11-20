@@ -101,7 +101,7 @@ namespace AnimationSequenceTool.Editor
             };
             _controlPanel.BindDataField = (dataField, serializedProperty) => dataField.BindDataFieldProperty(_animationPreviewPanel, serializedProperty);
             
-            _animationPreviewPanel.ChangePreviewClip(_controlPanel.ControlPanelBindingData.SelectedAnimationClip);
+            _animationPreviewPanel.ChangePreviewClip(_controlPanel.CurrentClip);
             
             splitView.Add(_controlPanel);
             

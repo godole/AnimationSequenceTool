@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using AnimationSequenceTool.Editor.Common;
 using AnimationSequenceTool.Editor.Utilities;
 using AnimationSequenceTool.Editor.VisualElements.PreviewPanel;
@@ -46,11 +47,7 @@ namespace AnimationSequenceTool.Editor.VisualElements.ControlPanel
             public VisualElement Marker; 
         }
 
-        public Action<AnimationClip> OnSelectedAnimationChanged
-        {
-            get =>ControlPanelBindingData.OnSelectedAnimationChanged;
-            set => ControlPanelBindingData.OnSelectedAnimationChanged = value;
-        }
+        public Action<AnimationClip> OnSelectedAnimationChanged;
         public Action<PreviewDataField, SerializedProperty> BindDataField;
 
         public EditorWindowStopwatch Timer { get; } = new();
@@ -64,7 +61,10 @@ namespace AnimationSequenceTool.Editor.VisualElements.ControlPanel
         private ListView _trackListView;
         
         //Data
-        public ControlPanelBindingData ControlPanelBindingData { get; private set; }
+        public DictionaryBindingData<string, SequenceElement> ControlPanelBindingData { get; private set; }
+        private AnimatorController _originAnimatorController;
+        
+        public AnimationClip CurrentClip { get; private set; }
 
         public ControlPanel()
         {
@@ -82,7 +82,11 @@ namespace AnimationSequenceTool.Editor.VisualElements.ControlPanel
         /// <param name="animatorComponentData"><see cref="AnimatorComponentData"/></param>
         public void InitializeVisualElements(BindingData bindingData, AnimatorComponentData animatorComponentData)
         {
-            ControlPanelBindingData = new ControlPanelBindingData(bindingData, animatorComponentData)
+            _originAnimatorController = animatorComponentData.AnimatorController;
+            
+            ControlPanelBindingData = new DictionaryBindingData<string, SequenceElement>(
+                new SerializedObject(bindingData.AnimationSequenceData), 
+                bindingData.AnimationSequenceData.SequenceData)
             {
                 OnUpdateCollectionItems = () =>
                 {
@@ -102,19 +106,19 @@ namespace AnimationSequenceTool.Editor.VisualElements.ControlPanel
             var timelineContainer = _rootElement.Q("TimeTrack");
             timelineContainer.RegisterMouseEvent(null, OnMouseMove, null);
 
-            var animationStates = ControlPanelBindingData.GetAnimationStateNames();
-
             var animationToolbar = _rootElement.Q<VisualElement>("AnimationToolbar");
             var selectStateDropdown = animationToolbar.Q<DropdownField>("SelectStateDropdown");
-            selectStateDropdown.choices = animationStates;
-            selectStateDropdown.value = animationStates[0];
+            selectStateDropdown.choices = ControlPanelBindingData.SerializedDictionary.Keys;
+            selectStateDropdown.value = selectStateDropdown.choices[0];
             selectStateDropdown.RegisterValueChangedCallback(evt =>
             {
                 string newValue = evt.newValue.ToString();
-                ControlPanelBindingData.ChangeAnimationState(newValue);
-                _dataFieldListView.RefreshItems();
-                _trackListView.RefreshItems();
+                ControlPanelBindingData.ChangeKey(newValue);
+                CurrentClip = GetAnimationClip(newValue);
+                OnSelectedAnimationChanged?.Invoke(CurrentClip);
             });
+            
+            CurrentClip = GetAnimationClip(selectStateDropdown.value);
 
             var toolbarContainer = _rootElement.Q<VisualElement>("ToolbarContainer");
 
@@ -128,7 +132,7 @@ namespace AnimationSequenceTool.Editor.VisualElements.ControlPanel
             stopBtn.RegisterCallback<ClickEvent>(_ => Timer.Stop());
             
             _trackListView = _rootElement.Q<ListView>("TrackListView");
-            _trackListView.itemsSource = ControlPanelBindingData.FilteredSequenceDataList;
+            _trackListView.itemsSource = ControlPanelBindingData.FilteredDataList;
             _trackListView.makeItem = () =>
             {
                 var track = new TimelineTrack
@@ -142,8 +146,7 @@ namespace AnimationSequenceTool.Editor.VisualElements.ControlPanel
             _trackListView.bindItem = (element, i) =>
             {
                 var timelineTrack = (TimelineTrack)element;
-                int filteredIndex = ControlPanelBindingData.FilteredSequenceDataIndices[i];
-                var bindProperty = ControlPanelBindingData.SequenceDataSerializedObject.FindProperty("SequenceData").GetArrayElementAtIndex(filteredIndex);
+                var bindProperty = ControlPanelBindingData.GetValueListProperty("SequenceData").GetArrayElementAtIndex(i);
 
                 timelineTrack.BindProperty(bindProperty);
                 element.userData = BindTrackMarker(bindProperty);
@@ -159,7 +162,7 @@ namespace AnimationSequenceTool.Editor.VisualElements.ControlPanel
             };
             
             _dataFieldListView = _rootElement.Q<ListView>("DataFieldListView");
-            _dataFieldListView.itemsSource = ControlPanelBindingData.FilteredSequenceDataList;
+            _dataFieldListView.itemsSource = ControlPanelBindingData.FilteredDataList;
             _dataFieldListView.makeItem = () =>
             {
                 var dataTrack = dataFieldAsset.CloneTree();
@@ -169,7 +172,7 @@ namespace AnimationSequenceTool.Editor.VisualElements.ControlPanel
                 {
                     var removeBtnData = (TrackRemoveBtnUserData)removeDataButton.userData;
             
-                    ControlPanelBindingData.SequenceDataSerializedObject.FindProperty("SequenceData")
+                    ControlPanelBindingData.GetValueListProperty("SequenceData")
                         .DeleteArrayElementAtIndex(removeBtnData.BindingDataIndex);
                     ControlPanelBindingData.UpdateCollectionItems();
                 };
@@ -178,8 +181,7 @@ namespace AnimationSequenceTool.Editor.VisualElements.ControlPanel
             };
             _dataFieldListView.bindItem = (element, i) =>
             {
-                int filteredIndex = ControlPanelBindingData.FilteredSequenceDataIndices[i];
-                var property = ControlPanelBindingData.SequenceDataSerializedObject.FindProperty("SequenceData").GetArrayElementAtIndex(filteredIndex);
+                var property = ControlPanelBindingData.GetValueListProperty("SequenceData").GetArrayElementAtIndex(i);
             
                 var dataField = element.Q<PreviewDataField>("DataField");
                 
@@ -188,7 +190,7 @@ namespace AnimationSequenceTool.Editor.VisualElements.ControlPanel
                 var removeDataButton = element.Q<Button>("RemoveDataButton");
                 var userdata = new TrackRemoveBtnUserData()
                 {
-                    BindingDataIndex = filteredIndex
+                    BindingDataIndex = i
                 };
                 removeDataButton.userData = userdata;
             };
@@ -202,11 +204,11 @@ namespace AnimationSequenceTool.Editor.VisualElements.ControlPanel
             var listviewAddButton = _rootElement.Q<Button>("DataFieldAddButton");
             listviewAddButton.clicked += () =>
             {
-                var newSequenceData = new SequenceData
+                var newSequenceData = new SequenceElement
                 {
                     StateName = selectStateDropdown.value
                 };
-                ControlPanelBindingData.AnimationSequenceData.SequenceData.Add(newSequenceData);
+                ControlPanelBindingData.SerializedDictionary.Add(selectStateDropdown.value, newSequenceData);
                 ControlPanelBindingData.UpdateCollectionItems();
             };
         }
@@ -249,6 +251,22 @@ namespace AnimationSequenceTool.Editor.VisualElements.ControlPanel
                 marker.style.left = p.floatValue * AnimationSequenceWindowConstants.TrackWidth -
                                     marker.resolvedStyle.width * 0.5f;
             }
+        }
+
+        private AnimationClip GetAnimationClip(string stateName)
+        {
+            foreach (var layer in _originAnimatorController.layers)  
+            {
+                foreach (var state in layer.stateMachine.states)
+                {
+                    if (state.state.name.Equals(stateName))
+                    {
+                        return state.state.motion as AnimationClip;
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }
