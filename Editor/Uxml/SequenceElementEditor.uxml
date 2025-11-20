@@ -1,0 +1,6 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:TextField label="State Name" placeholder-text="stateName" name="StateNameField" />
+    <ui:Slider label="Event Time" value="42" high-value="1" name="EventTimeField" />
+    <uie:ObjectField label="Data&#10;" name="DataField" />
+    <ui:VisualElement name="InspectorContainer" style="flex-grow: 1;" />
+</ui:UXML>

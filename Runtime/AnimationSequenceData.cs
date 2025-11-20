@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace AnimationSequenceTool.Runtime
 {
     [Serializable]
-    public class SequenceData
+    public class SequenceElement
     {
         public string StateName;
         public float EventNormalizedTime;
@@ -15,15 +16,20 @@ namespace AnimationSequenceTool.Runtime
     [CreateAssetMenu(fileName = "Animation Sequence Data", menuName = "Animation Sequence Data")]
     public class AnimationSequenceData : ScriptableObject
     {
-        public List<SequenceData> SequenceData = new List<SequenceData>();
+        public SerializableDictionary<string, SequenceElement> SequenceData = new SerializableDictionary<string, SequenceElement>();
 
-        public List<SequenceData> GetSortedSequenceData()
+        public Dictionary<int, List<SequenceElement>> GetRuntimeSequenceData()
         {
-            var sortedSequenceData = new List<SequenceData>(SequenceData);
+            var runtimeSequenceData = new Dictionary<int, List<SequenceElement>>();
+
+            foreach (var dictionaryElement in SequenceData.Dictionary)   
+            {
+                var sortedSequenceElements = new List<SequenceElement>(dictionaryElement.Value.Values);
+                sortedSequenceElements.Sort((a, b) => a.EventNormalizedTime.CompareTo(b.EventNormalizedTime));
+                runtimeSequenceData.Add(Animator.StringToHash(dictionaryElement.Key), sortedSequenceElements);
+            }
             
-            sortedSequenceData.Sort((a, b) => a.EventNormalizedTime.CompareTo(b.EventNormalizedTime));
-            
-            return sortedSequenceData;
+            return runtimeSequenceData;
         }
     }
 }

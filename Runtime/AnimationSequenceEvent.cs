@@ -10,7 +10,7 @@ namespace AnimationSequenceTool.Runtime
         [SerializeField] private AnimationSequenceData _animationSequenceData;
         [SerializeField] private Animator _animator;
         
-        private readonly Dictionary<int, List<SequenceData>> _cachedSequenceData = new();
+        private Dictionary<int, List<SequenceElement>> _cachedSequenceData = new();
         
         private int _currentStateNameHash;
         private float _currentAnimationTime;
@@ -21,21 +21,7 @@ namespace AnimationSequenceTool.Runtime
         
         private void Start()
         {
-            var sortedSequenceData = _animationSequenceData.GetSortedSequenceData();
-
-            foreach (var sequenceData in sortedSequenceData)
-            {
-                int stateNameHash = Animator.StringToHash(sequenceData.StateName);
-                
-                if (_cachedSequenceData.TryGetValue(stateNameHash, out List<SequenceData> sequenceDataList))
-                {
-                    sequenceDataList.Add(sequenceData);
-                }
-                else
-                {
-                    _cachedSequenceData.Add(stateNameHash, new List<SequenceData>() { sequenceData });
-                }
-            }
+            _cachedSequenceData = _animationSequenceData.GetRuntimeSequenceData();
         }
 
         private void Update()
@@ -52,7 +38,7 @@ namespace AnimationSequenceTool.Runtime
                 _currentSequenceDataIndex = 0;
             }
 
-            if (!_cachedSequenceData.TryGetValue(currentStateNameHash, out List<SequenceData> currentState))
+            if (!_cachedSequenceData.TryGetValue(currentStateNameHash, out List<SequenceElement> currentState))
             {
                 return;
             }
