@@ -1,5 +1,4 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <Style src="project://database/Packages/com.godole.animationsequencetool/Editor/Uss/AnimationSequenceEventEditor.uss?fileID=7433441132597879392&amp;guid=89c0f1e8881b2c9419c12dcd2f4fbd06&amp;type=3#AnimationSequenceEventEditor" />
     <ui:DropdownField label="AnimationState" name="AnimationStateDropdownField" />
     <ui:VisualElement name="VisualElement" style="flex-grow: 0; flex-direction: row;">
         <ui:TextField label="New Key Name" placeholder-text="Key Name" name="AddKeyInputField" style="flex-grow: 1;" />

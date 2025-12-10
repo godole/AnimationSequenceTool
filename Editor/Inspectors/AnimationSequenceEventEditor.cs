@@ -32,6 +32,8 @@ namespace AnimationSequenceTool.Editor.Inspectors
             _dataInspectorContainer = rootElement.Q<VisualElement>("SequenceDataInspectorContainer");
             _dataInspector = rootElement.Q<VisualElement>("SequenceDataInspector");
             _dataNameLabel = rootElement.Q<Label>("DataNameLabel");
+            var sequenceExecutor = rootElement.Q<ObjectField>("ExecutorField");
+            sequenceExecutor.BindProperty(serializedObject.FindProperty("AnimationSequenceExecutor"));
 
             _createNewDataBtn.clicked += CreateNewData;
             

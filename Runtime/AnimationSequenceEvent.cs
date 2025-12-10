@@ -1,14 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace AnimationSequenceTool.Runtime
 {
+    [RequireComponent(typeof(Animator))]
     public class AnimationSequenceEvent : MonoBehaviour
     {
-        [SerializeField] private AnimationSequenceExecutor _animationSequenceExecutor;
+        public AnimationSequenceExecutor AnimationSequenceExecutor;
         
         [SerializeField] private AnimationSequenceData _animationSequenceData;
-        [SerializeField] private Animator _animator;
+        
+        private Animator _animator;
         
         private Dictionary<int, List<SequenceElement>> _cachedSequenceData = new();
         
@@ -21,6 +24,13 @@ namespace AnimationSequenceTool.Runtime
         
         private void Start()
         {
+            if (_animationSequenceData == null)
+            {
+                enabled = false;
+                return;
+            }
+            
+            _animator = GetComponent<Animator>();
             _cachedSequenceData = _animationSequenceData.GetRuntimeSequenceData();
         }
 
@@ -57,7 +67,7 @@ namespace AnimationSequenceTool.Runtime
                 
                 if (_currentAnimationTime <= eventTime && eventTime <= nextTime)
                 {
-                    _animationSequenceExecutor.Execute(currentSequenceData.Data.GetType(), currentSequenceData.Data);
+                    AnimationSequenceExecutor.Execute(currentSequenceData.Data.GetType(), currentSequenceData.Data);
                 }
                 else
                 {
