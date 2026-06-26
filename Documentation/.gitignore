@@ -7,3 +7,8 @@
 /**/bin/
 /**/obj/
 _site
+
+/api/*.meta
+_site.meta
+obj.meta
+toc.yml.meta
