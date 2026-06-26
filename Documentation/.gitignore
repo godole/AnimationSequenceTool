@@ -11,4 +11,3 @@ _site
 /api/*.meta
 _site.meta
 obj.meta
-toc.yml.meta
